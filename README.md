@@ -60,6 +60,10 @@ def steal():
 def print_it():
 	print("{g}This works!{rs}".format(g=GREEN,rs=RESET_ALL)
 ```
+Now try it out:
+```bash
+./passthief.py --test
+```
 ## PyInstaller
 For 'freezing' <b>passthief</b> I use PyInstaller as it allows me to load the modules at runtime.<br />
 I was having some problems with using 3rd party modules(like colorama),but appending them to the hiddenimports list in the <b>passthief.spec</b> file seemed to fix it, for now.<br />

