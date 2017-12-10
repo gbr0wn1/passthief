@@ -1,0 +1,7 @@
+# PyInstaller Builds
+build/
+dist/
+# Backup files
+*.backup
+#Bytecode
+*.pyc
