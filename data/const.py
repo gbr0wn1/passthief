@@ -1,29 +1,49 @@
 # -*- coding: utf-8
 from importlib import import_module
+import platform
 # 3rd-party
 import colorama as Color
 from colorama import Fore,Back,Style
 # Print banner
 def PrintBanner():
-	print('''
-	{red}██████╗  █████╗ ███████╗███████╗████████╗██╗  ██╗██╗███████╗███████╗{reset}
-	{yellow}██╔══██╗██╔══██╗██╔════╝██╔════╝╚══██╔══╝██║  ██║██║██╔════╝██╔════╝{reset}
-	{bright}{yellow}██████╔╝███████║███████╗███████╗   ██║   ███████║██║█████╗  █████╗{reset}
-	{green}██╔═══╝ ██╔══██║╚════██║╚════██║   ██║   ██╔══██║██║██╔══╝  ██╔══╝{reset}
-	{blue}██║     ██║  ██║███████║███████║   ██║   ██║  ██║██║███████╗██║{reset}
-	{pink}╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝╚═╝{reset}
-	{bright}Version {green}{ver}{white}
-	'''.format(ver=VersionInfo.GetInfo(),
-							red=Fore.RED,
-							yellow=Fore.YELLOW,
-							green=Fore.GREEN,
-							blue=Fore.BLUE,
-							pink=Fore.MAGENTA,
-							white=Fore.WHITE,
-							reset=Style.RESET_ALL,
-							bright=Style.BRIGHT
-							)
-	)
+	# Windows has a problem with this banner
+	if(platform.system() != "Windows"):
+		print('''
+		{red}██████╗  █████╗ ███████╗███████╗████████╗██╗  ██╗██╗███████╗███████╗{reset}
+		{yellow}██╔══██╗██╔══██╗██╔════╝██╔════╝╚══██╔══╝██║  ██║██║██╔════╝██╔════╝{reset}
+		{bright}{yellow}██████╔╝███████║███████╗███████╗   ██║   ███████║██║█████╗  █████╗{reset}
+		{green}██╔═══╝ ██╔══██║╚════██║╚════██║   ██║   ██╔══██║██║██╔══╝  ██╔══╝{reset}
+		{blue}██║     ██║  ██║███████║███████║   ██║   ██║  ██║██║███████╗██║{reset}
+		{pink}╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝╚═╝{reset}
+		{bright}Version {green}{ver}{white}
+		'''.format(ver=VersionInfo.GetInfo(),
+								red=Fore.RED,
+								yellow=Fore.YELLOW,
+								green=Fore.GREEN,
+								blue=Fore.BLUE,
+								pink=Fore.MAGENTA,
+								white=Fore.WHITE,
+								reset=Style.RESET_ALL,
+								bright=Style.BRIGHT
+								)
+		)
+	else:
+		print('''{red}\t\t\t    ___              _   _     _       __ {reset}
+			 {yellow}  / _ \__ _ ___ ___| |_| |__ (_) ___ / _|{reset}
+			 {green} / /_)/ _` / __/ __| __| '_ \| |/ _ \ |_ {reset}
+			 {blue}/ ___/ (_| \__ \__ \ |_| | | | |  __/  _|{reset}
+			 {pink}\/    \__,_|___/___/\__|_| |_|_|\___|_|  {reset}
+                         {bright}Version {green}{ver}{white}'''.format(ver=VersionInfo.GetInfo(),
+								red=Fore.RED,
+								yellow=Fore.YELLOW,
+								green=Fore.GREEN,
+								blue=Fore.BLUE,
+								pink=Fore.MAGENTA,
+								white=Fore.WHITE,
+								reset=Style.RESET_ALL,
+								bright=Style.BRIGHT
+								)
+		)
 # Constants
 class VersionInfo(object):
 	# Returns the version info
