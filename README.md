@@ -54,7 +54,7 @@ frin colorama.Style import RESET_ALL
 # to the terminal/CMD.
 def steal():
 	colorama.init()
-    print_it()
+    	print_it()
 # It can have other methods too,passthief doesn't care
 # All it cares about is the steal method
 def print_it():
