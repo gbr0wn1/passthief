@@ -51,7 +51,7 @@ Open up your favorite code/text editor and let's get started.
 # You can use 3rd party imports too, but PyInstaller might not like it
 import colorama
 from colorama.Fore import GREEN
-frin colorama.Style import RESET_ALL
+from colorama.Style import RESET_ALL
 # Each module must have a steal method for it to be valid
 # The steal method doesn't return anything, it writes the result
 # to the terminal/CMD.
