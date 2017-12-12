@@ -8,7 +8,7 @@ I am not responsible for any damage you cause while using this tool.
 By default Firefox and Chrome modules are enabled.<br/>
 If you wish to use a module called "linux", you call the script like this:
 ```bash
-./passthief.py --linux
+./passthief.py --m linux
 ```
 The output should be something like this(if the module is present):
 ```
@@ -65,7 +65,7 @@ def print_it():
 ```
 Now try it out:
 ```bash
-./passthief.py --test
+./passthief.py --m test
 ```
 ## PyInstaller
 For 'freezing' <b>passthief</b> I use PyInstaller as it allows me to load the modules at runtime.<br />
