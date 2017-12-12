@@ -1,5 +1,8 @@
 # :: passthief :unlock: :running::dash:
 A Python script to steal all the passwords via the use of plugins :smiling_imp:
+## Disclaimer:
+Do not use this tool for illegal purposes ( steal from somebody else ).<br />
+I am not responsible for any damage you cause while using this tool.
 ## Usage:
 <b>passthief</b> is a Python script designed to work with dynamic loading of modules or plugins, whatever you may call them.<br />
 By default Firefox and Chrome modules are enabled.<br/>
@@ -48,7 +51,7 @@ Open up your favorite code/text editor and let's get started.
 # You can use 3rd party imports too, but PyInstaller might not like it
 import colorama
 from colorama.Fore import GREEN
-frin colorama.Style import RESET_ALL
+from colorama.Style import RESET_ALL
 # Each module must have a steal method for it to be valid
 # The steal method doesn't return anything, it writes the result
 # to the terminal/CMD.
