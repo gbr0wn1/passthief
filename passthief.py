@@ -3,9 +3,10 @@
 import colorama as Color
 from colorama import Fore,Back,Style
 # Imports
-from sys import argv,path,executable,exit,version_info as version
+from sys import path,executable,exit,version_info as version
 import os
 from time import localtime
+from argparse import ArgumentParser
 # Module functions and all
 from data.const import *
 # Init colorama
@@ -20,8 +21,12 @@ if ver < (3,0):
 	print("{red}This script requires Python 3.X{reset}\n".format(red=Fore.RED,
 								   reset=Style.RESET_ALL))
 	exit(2)
+# Command line arguments
+parser = ArgumentParser()
+parser.add_argument("--m","--modules",nargs="*",help="Modules to load")
+argv = parser.parse_args()
 # Make it easier for plugins to be loaded from the command line
-argv = ParseArgs(argv)
+argv = TransformArgs(argv.m)
 # Load all the plugins/modules
 modules = LoadModules(argv)
 # Check the modules to see if they are good
@@ -41,4 +46,6 @@ print("Finished: {time}".format(time="{day}/{month}/{year} {hour}:{min}".format(
                                                                                  hour=time.tm_hour,
                                                                                  min=time.tm_min)))
 # Done. Wait for a keypress
-input("Done. Press enter to continue...")
+input("\nDone. Press enter to continue...")
+
+# Functions
