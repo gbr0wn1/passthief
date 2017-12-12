@@ -40,3 +40,5 @@ print("Finished: {time}".format(time="{day}/{month}/{year} {hour}:{min}".format(
                                                                                  year=time.tm_year,
                                                                                  hour=time.tm_hour,
                                                                                  min=time.tm_min)))
+# Done. Wait for a keypress
+input("Done. Press enter to continue...")
