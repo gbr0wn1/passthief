@@ -1,11 +1,9 @@
 #!/usr/bin/env python
-# Future
-from __future__ import print_function
-# 3rd-party
+# 3rd party
 import colorama as Color
 from colorama import Fore,Back,Style
 # Imports
-from sys import argv,path,executable
+from sys import argv,path,executable,exit,version_info as version
 import os
 from time import localtime
 # Module functions and all
@@ -16,6 +14,12 @@ Color.init()
 PrintBanner()
 # Add myself to the path (for pyinstaller's hiddenimports)
 path.append(os.path.dirname(executable))
+# Check for the Python version, Python 3.X required for now
+ver = (version.major,version.minor)
+if ver < (3,0):
+	print("{red}This script requires Python 3.X{reset}\n".format(red=Fore.RED,
+								   reset=Style.RESET_ALL))
+	exit(2)
 # Make it easier for plugins to be loaded from the command line
 argv = ParseArgs(argv)
 # Load all the plugins/modules

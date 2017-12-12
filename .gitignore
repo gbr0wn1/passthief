@@ -5,3 +5,7 @@ dist/
 *.backup
 #Bytecode
 *.pyc
+# Virtualenv
+bin/
+lib/
+pip-selfcheck.json
