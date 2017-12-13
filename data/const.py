@@ -115,8 +115,22 @@ def CheckModules(mods):
 def CallModules(mods,out):
 	if out != None:
 		with open(out,"w") as f:
+			# TODO: Check for output type
 			for m in mods:
-				f.write(print("-{blue}{name}{white}:".format(name=GetModuleName(repr(m)),
-								     white=Fore.WHITE,
-								     blue=Fore.BLUE)))
-				f.write(m.steal())
+				f.write("-{blue}{name}{white}:".format(name=GetModuleName(repr(m)),
+								      white=Fore.WHITE,
+								      blue=Fore.BLUE))
+				f.writelines(m.steal())
+				f.write("\n")
+	else:
+		for m in mods:
+			print("-{blue}{name}{white}:".format(name=GetModuleName(repr(m)),
+								      white=Fore.WHITE,
+								      blue=Fore.BLUE))
+			lines  = m.steal()
+			if not isinstance(lines,str):
+				for line in lines:
+					print(line)
+			else:
+				print(lines)
+				
