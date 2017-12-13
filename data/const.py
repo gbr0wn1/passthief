@@ -85,9 +85,8 @@ def LoadModules(argv):
 		try:
 			modules.append(import_module(argv[_]))
 		except ImportError as e:
-			#reason = repr(e).split("ImportError('No module named ")[1].split("'")[0]
 			reason = repr(e)
-			print("{red}[x]{white} Module not loaded: {blue}{name}{white}\nUnsupported 3rd party library: {reason}".format(name=GetModuleName(argv[_]),
+			print("{red}[x]{white} Module not loaded: {blue}{name}{white}\nReason: {reason}".format(name=GetModuleName(argv[_]),
 																				 		  								   red=Fore.RED,
 																				 	  	  			  					   white=Fore.WHITE,
 																				 	  	  			  					   blue=Fore.BLUE,
@@ -113,9 +112,11 @@ def CheckModules(mods):
 	return mods
 
 # Call all the modules
-def CallModules(mods):
-	for m in mods:
-		print("-{blue}{name}{white}:".format(name=GetModuleName(repr(m)),
-						     white=Fore.WHITE,
-						     blue=Fore.BLUE))
-		m.steal()
+def CallModules(mods,out):
+	if out != None:
+		with open(out,"w") as f:
+			for m in mods:
+				f.write(print("-{blue}{name}{white}:".format(name=GetModuleName(repr(m)),
+								     white=Fore.WHITE,
+								     blue=Fore.BLUE)))
+				f.write(m.steal())

@@ -23,9 +23,11 @@ if ver < (3,0):
 	exit(2)
 # Command line arguments
 parser = ArgumentParser()
-parser.add_argument("--m","--modules",nargs="*",help="Modules to load")
+parser.add_argument("-m",metavar="MODULE NAME",nargs="*",help="modules to load")
+parser.add_argument("-o",nargs="?",metavar="FILE", help="output file")
 argv = parser.parse_args()
 # Make it easier for plugins to be loaded from the command line
+out = argv.o
 argv = TransformArgs(argv.m)
 # Load all the plugins/modules
 modules = LoadModules(argv)
@@ -38,7 +40,7 @@ print("\nStarted: {time}".format(time="{day}/{month}/{year} {hour}:{min}".format
                                                                                  year=time.tm_year,
                                                                                  hour=time.tm_hour,
                                                                                  min=time.tm_min)))
-CallModules(modules)
+CallModules(modules,out)
 time = localtime()
 print("Finished: {time}".format(time="{day}/{month}/{year} {hour}:{min}".format(day=time.tm_mday,
                                                                                  month=time.tm_mon,
