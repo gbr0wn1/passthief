@@ -61,15 +61,7 @@ class VersionInfo(object):
 	# Returns the revision number
 	@staticmethod
 	def GetRevision():
-		return 1
-# Remove duplicates
-def RemoveDuplicates(data):
-	seen = list()
-	for datum in data:
-		# Check if it's in set
-		if datum not in seen:
-			seen.append(datum)
-	return seen
+		return 2
 # Transform up the args to be ready for use
 def TransformArgs(argv):
 	# Check for null argv
@@ -79,7 +71,7 @@ def TransformArgs(argv):
 	argv.append("firefox")
 	argv.append("chrome")
 	# Remove duplicates
-	argv = RemoveDuplicates(argv)
+	argv = list(set(argv))
 	print("{green}[*]{white} Loading modules:".format(green=Fore.GREEN,
 							     white=Fore.WHITE))
 	# Add the module path
@@ -116,7 +108,7 @@ def CheckModules(mods):
 		if hasattr(m,'steal'):
 			print("{green}[*]{white} Loaded module: {blue}{name}{white}".format(name=GetModuleName(repr(m)),green=Fore.GREEN,white=Fore.WHITE,blue=Fore.BLUE))
 		else:
-			print("{red}[x]{white} Error loading module: {blue}{name}{white}".format(name=GetModuleName(repr(m)),red=Fore.RED,white=Fore.WHITE,blue=Fore.BLUE))
+			print("{red}[-]{white} Error loading module: {blue}{name}{white}".format(name=GetModuleName(repr(m)),red=Fore.RED,white=Fore.WHITE,blue=Fore.BLUE))
 			mods.remove(m)
 	return mods
 
@@ -124,11 +116,9 @@ def CheckModules(mods):
 def CallModules(mods,out):
 	if out != None:
 		with open(out,"w") as f:
-			# TODO: Check for output type
+			# TODO: Check for output type when they are added
 			for m in mods:
-				f.write("-{blue}{name}{white}:".format(name=GetModuleName(repr(m)),
-								      white=Fore.WHITE,
-								      blue=Fore.BLUE))
+				f.write("-{name}:".format(name=GetModuleName(repr(m))))
 				f.writelines(m.steal())
 				f.write("\n")
 	else:

@@ -8,7 +8,7 @@ import os
 from time import localtime
 from argparse import ArgumentParser
 # Module functions and all
-from data.const import *
+from data.core import *
 # Init colorama
 Color.init()
 # Print the banner
@@ -34,19 +34,23 @@ modules = LoadModules(argv)
 # Check the modules to see if they are good
 modules = CheckModules(modules)
 # Call all the steal methods
-time = localtime()
-print("\nStarted: {time}".format(time="{day}/{month}/{year} {hour}:{min}".format(day=time.tm_mday,
-                                                                                 month=time.tm_mon,
-                                                                                 year=time.tm_year,
-                                                                                 hour=time.tm_hour,
-                                                                                 min=time.tm_min)))
+if out == None:
+	time = localtime()
+	print("\nStarted: {time}".format(time="{day}/{month}/{year} {hour}:{min}".format(day=time.tm_mday,
+		                                                                         month=time.tm_mon,
+		                                                                         year=time.tm_year,
+		                                                                         hour=time.tm_hour,
+		                                                                         min=time.tm_min)))
 CallModules(modules,out)
-time = localtime()
-print("Finished: {time}".format(time="{day}/{month}/{year} {hour}:{min}".format(day=time.tm_mday,
-                                                                                 month=time.tm_mon,
-                                                                                 year=time.tm_year,
-                                                                                 hour=time.tm_hour,
-                                                                                 min=time.tm_min)))
+if out == None:
+	time = localtime()
+	print("Finished: {time}".format(time="{day}/{month}/{year} {hour}:{min}".format(day=time.tm_mday,
+		                                                                         month=time.tm_mon,
+		                                                                         year=time.tm_year,
+		                                                                         hour=time.tm_hour,
+		                                                                         min=time.tm_min)))
+else:
+	print("\nWritten results to a file...")
 # Done. Wait for a keypress
 input("\nDone. Press enter to continue...")
 
