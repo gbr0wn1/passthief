@@ -61,7 +61,15 @@ class VersionInfo(object):
 	# Returns the revision number
 	@staticmethod
 	def GetRevision():
-		return 0
+		return 1
+# Remove duplicates
+def RemoveDuplicates(data):
+	seen = list()
+	for datum in data:
+		# Check if it's in set
+		if datum not in seen:
+			seen.append(datum)
+	return seen
 # Transform up the args to be ready for use
 def TransformArgs(argv):
 	# Check for null argv
@@ -71,7 +79,8 @@ def TransformArgs(argv):
 	argv.append("firefox")
 	argv.append("chrome")
 	# Remove duplicates
-	print("{green}[*]{white} Checking modules:\n".format(green=Fore.GREEN,
+	argv = RemoveDuplicates(argv)
+	print("{green}[*]{white} Loading modules:".format(green=Fore.GREEN,
 							     white=Fore.WHITE))
 	# Add the module path
 	for i in range(0,len(argv)):

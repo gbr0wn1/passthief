@@ -8,7 +8,7 @@ I am not responsible for any damage you cause while using this tool.
 By default Firefox and Chrome modules are enabled.<br/>
 If you wish to use a module called "linux", you call the script like this:
 ```bash
-./passthief.py --m linux
+./passthief.py -m linux
 ```
 The output should be something like this(if the module is present):
 ```
@@ -19,10 +19,9 @@ The output should be something like this(if the module is present):
 	██╔═══╝ ██╔══██║╚════██║╚════██║   ██║   ██╔══██║██║██╔══╝  ██╔══╝
 	██║     ██║  ██║███████║███████║   ██║   ██║  ██║██║███████╗██║
 	╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝╚═╝
-	Version 0.1.0
+	Version 0.2.1
 	
 [*] Checking modules:
-
 [*] Loaded module: Linux
 [*] Loaded module: Firefox
 [*] Loaded module: Chrome
@@ -53,19 +52,19 @@ import colorama
 from colorama.Fore import GREEN
 from colorama.Style import RESET_ALL
 # Each module must have a steal method for it to be valid
-# The steal method doesn't return anything, it writes the result
-# to the terminal/CMD.
+# The steal method returns a string,which will then be written either
+# on the screen or in a file
 def steal():
 	colorama.init()
-    	print_it()
+    	return print_it()
 # It can have other methods too,passthief doesn't care
 # All it cares about is the steal method
 def print_it():
-	print("{g}This works!{rs}".format(g=GREEN,rs=RESET_ALL)
+	return "{g}This works!{rs}".format(g=GREEN,rs=RESET_ALL)
 ```
 Now try it out:
 ```bash
-./passthief.py --m test
+./passthief.py -m test
 ```
 ## PyInstaller
 For 'freezing' <b>passthief</b> I use PyInstaller as it allows me to load the modules at runtime.<br />
