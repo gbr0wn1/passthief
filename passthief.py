@@ -17,9 +17,9 @@ PrintBanner()
 path.append(os.path.dirname(executable))
 # Check for the Python version, Python 3.X required for now
 ver = (version.major,version.minor)
-if ver < (3,0):
-	print("{red}This script requires Python 3.X{reset}\n".format(red=Fore.RED,
-								   reset=Style.RESET_ALL))
+if ver < (3,2):
+	print("{red}This script requires Python 3.2 or greater{reset}\n".format(red=Fore.RED,
+								         reset=Style.RESET_ALL))
 	exit(2)
 # Command line arguments
 parser = ArgumentParser()
