@@ -109,8 +109,8 @@ def CheckModules(mods):
 			if callable(m.steal):
 				print("{green}[*]{white} Loaded module: {blue}{name}{white}".format(name=GetModuleName(repr(m)),green=Fore.GREEN,white=Fore.WHITE,blue=Fore.BLUE))
 				continue
-			print("{red}[-]{white} Error loading module: {blue}{name}{white}".format(name=GetModuleName(repr(m)),red=Fore.RED,white=Fore.WHITE,blue=Fore.BLUE))
-			mods.remove(m)
+		print("{red}[-]{white} Error loading module: {blue}{name}{white}".format(name=GetModuleName(repr(m)),red=Fore.RED,white=Fore.WHITE,blue=Fore.BLUE))
+		mods.remove(m)
 	return mods
 
 # Call all the modules
