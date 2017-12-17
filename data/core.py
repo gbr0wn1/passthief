@@ -61,7 +61,7 @@ class VersionInfo(object):
 	# Returns the revision number
 	@staticmethod
 	def GetRevision():
-		return 0
+		return 2
 # Transform up the args to be ready for use
 def TransformArgs(argv):
 	# Check for null argv
@@ -71,7 +71,8 @@ def TransformArgs(argv):
 	argv.append("firefox")
 	argv.append("chrome")
 	# Remove duplicates
-	print("{green}[*]{white} Checking modules:\n".format(green=Fore.GREEN,
+	argv = list(set(argv))
+	print("{green}[*]{white} Loading modules:".format(green=Fore.GREEN,
 							     white=Fore.WHITE))
 	# Add the module path
 	for i in range(0,len(argv)):
@@ -85,9 +86,8 @@ def LoadModules(argv):
 		try:
 			modules.append(import_module(argv[_]))
 		except ImportError as e:
-			#reason = repr(e).split("ImportError('No module named ")[1].split("'")[0]
 			reason = repr(e)
-			print("{red}[x]{white} Module not loaded: {blue}{name}{white}\nUnsupported 3rd party library: {reason}".format(name=GetModuleName(argv[_]),
+			print("{red}[x]{white} Module not loaded: {blue}{name}{white}\nReason: {reason}".format(name=GetModuleName(argv[_]),
 																				 		  								   red=Fore.RED,
 																				 	  	  			  					   white=Fore.WHITE,
 																				 	  	  			  					   blue=Fore.BLUE,
@@ -106,16 +106,31 @@ def CheckModules(mods):
 	for m in reversed(list(mods)):
 		# Each module must have a steal function which will be called
 		if hasattr(m,'steal'):
-			print("{green}[*]{white} Loaded module: {blue}{name}{white}".format(name=GetModuleName(repr(m)),green=Fore.GREEN,white=Fore.WHITE,blue=Fore.BLUE))
-		else:
-			print("{red}[x]{white} Error loading module: {blue}{name}{white}".format(name=GetModuleName(repr(m)),red=Fore.RED,white=Fore.WHITE,blue=Fore.BLUE))
-			mods.remove(m)
+			if callable(m.steal):
+				print("{green}[*]{white} Loaded module: {blue}{name}{white}".format(name=GetModuleName(repr(m)),green=Fore.GREEN,white=Fore.WHITE,blue=Fore.BLUE))
+				continue
+		print("{red}[-]{white} Error loading module: {blue}{name}{white}".format(name=GetModuleName(repr(m)),red=Fore.RED,white=Fore.WHITE,blue=Fore.BLUE))
+		mods.remove(m)
 	return mods
 
 # Call all the modules
-def CallModules(mods):
-	for m in mods:
-		print("-{blue}{name}{white}:".format(name=GetModuleName(repr(m)),
-						     white=Fore.WHITE,
-						     blue=Fore.BLUE))
-		m.steal()
+def CallModules(mods,out):
+	if out != None:
+		with open(out,"w") as f:
+			# TODO: Check for output type when they are added
+			for m in mods:
+				f.write("-{name}:".format(name=GetModuleName(repr(m))))
+				f.writelines(m.steal())
+				f.write("\n")
+	else:
+		for m in mods:
+			print("-{blue}{name}{white}:".format(name=GetModuleName(repr(m)),
+								      white=Fore.WHITE,
+								      blue=Fore.BLUE))
+			lines  = m.steal()
+			if not isinstance(lines,str):
+				for line in lines:
+					print(line)
+			else:
+				print(lines)
+				
