@@ -29,12 +29,23 @@ class PassthiefOutputWriters(object):
 			for index in range(0,len(retValue),2):
 				writeFile.write("\n{name}:\n\toutput: ".format(name=retValue[index]))
 				writeFile.write(repr(retValue[index+1]))
+	@staticmethod
+	def WriteJSON(outFile,retValue):
+		with open(outFile,"w") as writeFile:
+			writeFile.write("{")
+			# For now just dump the output,don't try to parse it
+			for index in range(0,len(retValue),2):
+				writeFile.write("\n{name}: {x}\n\toutput: ".format(name=retValue[index],x="{"))
+				writeFile.write(repr(retValue[index+1]))
+				writeFile.write("\n\t}\n")
+			writeFile.write("}")
 
 class PassthiefCore(object):
 	"""Core of the Passthief script"""
 	# Static variables
 	OutputWriters = { 'text' : PassthiefOutputWriters.WriteText,
-					   'yaml': PassthiefOutputWriters.WriteYAML}
+					   'yaml': PassthiefOutputWriters.WriteYAML,
+					   'json': PassthiefOutputWriters.WriteJSON}
 	# Initializes the script
 	@staticmethod
 	def Initialize():
@@ -115,7 +126,7 @@ class PassthiefCore(object):
 		parser = ArgumentParser()
 		parser.add_argument("-m",metavar="MODULE NAME",nargs="*",help="modules to load")
 		parser.add_argument("-o",nargs="?",metavar="FILE", help="output file")
-		parser.add_argument("-f",nargs="?",metavar="OUTPUT FORMAT", help="output file format\n(supported are: text, will add xml and html) default: text")
+		parser.add_argument("-f",nargs="?",metavar="OUTPUT FORMAT", help="output file format\n(supported are: text, yaml, json) default: text")
 		return parser.parse_args()
 	# Prints the fabulous ASCII(ish)-art banner
 	@staticmethod
