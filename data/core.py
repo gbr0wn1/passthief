@@ -4,6 +4,7 @@ from sys import path,executable,exit,version_info as version # For various reaso
 import os # Basic OS functions
 from time import localtime # For time operations
 from argparse import ArgumentParser # Argument parsing
+import json
 # 3rd-party
 import colorama as Color # Coloring
 from colorama import Fore,Back,Style # Coloring
@@ -21,11 +22,20 @@ class PassthiefOutputWriters(object):
 						writeFile.write(line+'\n')
 				else:
 					writeFile.write(retValue[index+1]+'\n')
+	@staticmethod
+	def WriteYAML(outFile,retValue):
+		with open(outFile,"w") as writeFile:
+			writeFile.write("---")
+			# For now just dump the output,don't try to parse it
+			for index in range(0,len(retValue),2):
+				writeFile.write("\n{name}:\n\toutput: ".format(name=retValue[index]))
+				writeFile.write(repr(retValue[index+1]))
 
 class PassthiefCore(object):
 	"""Core of the Passthief script"""
 	# Static variables
-	OutputWriters = { 'text' : PassthiefOutputWriters.WriteText}
+	OutputWriters = { 'text' : PassthiefOutputWriters.WriteText,
+					   'yaml': PassthiefOutputWriters.WriteYAML}
 	# Initializes the script
 	@staticmethod
 	def Initialize():
