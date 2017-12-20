@@ -4,7 +4,6 @@ from sys import path,executable,exit,version_info as version # For various reaso
 import os # Basic OS functions
 from time import localtime # For time operations
 from argparse import ArgumentParser # Argument parsing
-import json
 # 3rd-party
 import colorama as Color # Coloring
 from colorama import Fore,Back,Style # Coloring
