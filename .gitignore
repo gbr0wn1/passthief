@@ -8,4 +8,10 @@ dist/
 # Virtualenv
 bin/
 lib/
+tcl/
+Lib/
+Include/
+Scripts/
 pip-selfcheck.json
+# IDE Stuff
+.vscode
