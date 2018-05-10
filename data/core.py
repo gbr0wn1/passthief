@@ -1,4 +1,5 @@
 # -*- coding: utf-8
+from __future__ import print_function
 from importlib import import_module # For module loading
 from sys import path,executable,exit,version_info as version # For various reasons
 import os # Basic OS functions
@@ -56,7 +57,7 @@ class PassthiefCore(object):
 	# Check for the Python version
 	@staticmethod
 	def CheckVersion():
-		return (version.major,version.minor) < (3,2)
+		return ("%s.%s.%s %s" % (version.major,version.minor,version.micro,version.releaselevel))
 	# Check if there is a writer for the specified format
 	@staticmethod
 	def CheckFormat(outFormat):

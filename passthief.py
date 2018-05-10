@@ -1,18 +1,21 @@
 #!/usr/bin/env python
+from __future__ import print_function
 # Import the core of the script
 from data.core import PassthiefCore
 # And colorama
 import colorama as Color # Coloring
 from colorama import Fore,Back,Style # Coloring
+# Fix input
+try:
+	input = raw_input
+except:
+	pass
 # Initialize everything
 PassthiefCore.Initialize()
 # Print the banner
 PassthiefCore.PrintBanner()
-# Check version
-if PassthiefCore.CheckVersion():
-	print("{red}This script requires Python 3.2 or greater{reset}\n".format(red=Fore.RED,
-										 reset=Style.RESET_ALL))
-	exit(2)
+# Print the python version
+print("Running Python {version}\n".format(version=PassthiefCore.CheckVersion()))
 # Get the command line arguments
 psArguments = PassthiefCore.GetArguments()
 outFile = psArguments.o
