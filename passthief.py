@@ -27,8 +27,7 @@ if outFile is not None:
 	if outFormat is None:
 		outFormat = 'text'
 	elif PassthiefCore.CheckFormat(outFormat):
-		print("{red}Invalid output format specified{reset}\n".format(red=Fore.RED,
-									         						 reset=Style.RESET_ALL))
+		print("{red}Invalid output format specified{reset}\n".format(red=Fore.RED,reset=Style.RESET_ALL))
 		exit(1)
 # Main logic
 PassthiefCore.CallModules(psModules,outFile,outFormat)
