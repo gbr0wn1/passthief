@@ -2,6 +2,7 @@
 A Python script to steal all the passwords via the use of plugins :smiling_imp:
 ## Disclaimer:
 Do not use this tool for illegal purposes ( steal from somebody else ).<br />
+In accordance with the Computer Misuse Act 1990, it is illegal to use this tool in order to access or attempt to access a computer system without authorisation.
 I am not responsible for any damage you cause while using this tool.
 ## Usage:
 <b>passthief</b> is a Python script designed to work with dynamic loading of modules or plugins, whatever you may call them.<br />
